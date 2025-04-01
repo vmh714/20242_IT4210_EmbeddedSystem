@@ -45,10 +45,12 @@ TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN PV */
 volatile uint8_t LED_Value;
+//Mảng lưu các giá trị của mode 4
 const unsigned char frames[] = { 0x00, 0x81, 0x42, 0x24, 0x18, 0x18, 0x24, 0x42,
 		0x81, 0x00 };
 uint8_t countMode = 1;
-volatile uint8_t modeLed = 1;
+//Mode 1 là mode ban đầu của chương trình
+volatile uint8_t modeLed = 0;
 volatile uint8_t chance;
 static uint8_t value1 = 1;
 static uint8_t value2 = 1;
@@ -164,6 +166,7 @@ int main(void) {
 
 	while (1) {
 		/* USER CODE END WHILE */
+		//Cập nhật mode khi có sự kiện ngắt
 		if(chance)
 		{
 			modeLed = countMode;
