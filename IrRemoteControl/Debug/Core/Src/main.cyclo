@@ -1,0 +1,12 @@
+../Core/Src/main.c:74:9:getMode	5
+../Core/Src/main.c:85:9:setLEDsMode1	1
+../Core/Src/main.c:90:9:setLEDsMode2	1
+../Core/Src/main.c:95:9:setLEDsMode3	1
+../Core/Src/main.c:100:9:setLEDsMode4	1
+../Core/Src/main.c:105:6:DisplayLEDs	9
+../Core/Src/main.c:152:5:main	3
+../Core/Src/main.c:223:6:SystemClock_Config	4
+../Core/Src/main.c:276:13:MX_TIM6_Init	3
+../Core/Src/main.c:314:13:MX_USART1_UART_Init	2
+../Core/Src/main.c:347:13:MX_GPIO_Init	1
+../Core/Src/main.c:418:6:Error_Handler	1
