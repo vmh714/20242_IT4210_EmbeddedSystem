@@ -9,12 +9,16 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\vuman\STM32CubeIDE\Lab1-ES\1_Led_Dislay"/>
+			<item value="D:\STM32\ES\ES_Lab\Lab1-ES"/>
+			<item value="D:\STM32\ES\ES_Lab\Lab1-ES\1_Led_Dislay"/>
+			<item value="D:\STM32\ES\ES_Lab\Lab1-ES\IrRemoteControl"/>
 			<item value="C:\Users\vuman\OneDrive - Hanoi University of Science and Technology\Documents\BKAV\BachelorCE\2024\2024.2\EmbeddedSystem\lab20242\Bài 1\IrRemoteControl"/>
 		</list>
 		<section name="SmartImportWizard.dialogBounds">
-			<item key="DIALOG_X_ORIGIN" value="619"/>
+			<item key="DIALOG_X_ORIGIN" value="371"/>
 			<item key="DIALOG_Y_ORIGIN" value="142"/>
-			<item key="DIALOG_WIDTH" value="935"/>
+			<item key="DIALOG_WIDTH" value="1558"/>
 			<item key="DIALOG_HEIGHT" value="726"/>
 			<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
 		</section>

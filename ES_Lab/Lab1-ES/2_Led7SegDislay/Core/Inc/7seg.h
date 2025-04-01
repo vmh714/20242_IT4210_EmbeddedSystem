@@ -11,14 +11,14 @@
 #include "stm32f4xx_hal.h"
 
 /* Module pin definition */
-#define PORT_7SEG_A		GPIOD
-#define PORT_7SEG_B		GPIOD
-#define PORT_7SEG_C		GPIOD
-#define PORT_7SEG_D		GPIOD
-#define PORT_7SEG_E		GPIOD
-#define PORT_7SEG_F		GPIOD
-#define PORT_7SEG_G		GPIOD
-#define PORT_7SEG_P		GPIOD
+#define PORT_7SEG_A		GPIOE
+#define PORT_7SEG_B		GPIOE
+#define PORT_7SEG_C		GPIOE
+#define PORT_7SEG_D		GPIOE
+#define PORT_7SEG_E		GPIOE
+#define PORT_7SEG_F		GPIOE
+#define PORT_7SEG_G		GPIOE
+#define PORT_7SEG_P		GPIOE
 
 #define PIN_7SEG_A		GPIO_PIN_8
 #define PIN_7SEG_B		GPIO_PIN_9

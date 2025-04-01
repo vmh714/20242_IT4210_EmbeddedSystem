@@ -42,9 +42,21 @@
 
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim6;
+//Biến lưu giá trị led và cờ ngắt
 volatile uint8_t numDisplay;
 volatile uint8_t numFlag;
-
+volatile uint8_t LED_Value;
+//Mảng lưu các giá trị của mode 4
+const unsigned char frames[] = { 0x00, 0x81, 0x42, 0x24, 0x18, 0x18, 0x24, 0x42,
+		0x81, 0x00 };
+uint8_t countMode = 1;
+//Mode 1 là mode ban đầu của chương trình
+volatile uint8_t modeLed = 0;
+volatile uint8_t chance;
+static uint8_t value1 = 1;
+static uint8_t value2 = 1;
+static uint8_t value3 = 0xFF;
+static uint8_t value4 = 0;
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -59,7 +71,62 @@ static void MX_TIM6_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint8_t setLEDsMode1() {
 
+	value1 = (value1 << 1) | (value1 >> 7);
+	return value1;
+}
+uint8_t setLEDsMode2() {
+
+	value2 = (value2 >> 1) | (value2 << 7);
+	return value2;
+}
+uint8_t setLEDsMode3() {
+	//static int value3 = 0xFF;
+	value3 = ~value3;
+	return value3;
+}
+uint8_t setLEDsMode4() {
+	value4 = value4 % 10;
+	return frames[value4++];
+}
+//con tro ham goi mode
+uint8_t (*setLEDsMode[])() = {setLEDsMode1, setLEDsMode2, setLEDsMode3, setLEDsMode4};
+void DisplayLEDs(uint8_t mode) {
+	LED_Value = setLEDsMode[mode]();
+	if (LED_Value & 0x80)
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_SET);
+	else
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_RESET);
+	if (LED_Value & 0x40)
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
+	else
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET);
+	if (LED_Value & 0x20)
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
+	else
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
+	if (LED_Value & 0x10)
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
+	else
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
+	if (LED_Value & 0x8)
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_11, GPIO_PIN_SET);
+	else
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_11, GPIO_PIN_RESET);
+	if (LED_Value & 0x4)
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_SET);
+	else
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_RESET);
+	if (LED_Value & 0x2)
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_SET);
+	else
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_9, GPIO_PIN_RESET);
+	if (LED_Value & 0x1)
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_8, GPIO_PIN_SET);
+	else
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_8, GPIO_PIN_RESET);
+}
 /* USER CODE END 0 */
 
 /**
@@ -101,12 +168,24 @@ int main(void) {
 	/* USER CODE BEGIN WHILE */
 	while (1) {
 		/* USER CODE END WHILE */
+		//Xử lý tăng 1 đơn vị khi ấn nút <=> sự kiện ngắt xảy ra
 		if (numFlag) {
 			Set7SegDisplayValue((++numDisplay) % 100);
 			numFlag = 0;
 		}
 		HAL_Delay(5);
 		Run7SegDisplay();
+		//hieu ung bai 1
+		/*
+		//Cập nhật mode khi có sự kiện ngắt
+				if(chance)
+				{
+					modeLed = countMode;
+					chance = 0;
+				}
+				HAL_Delay(500);
+				DisplayLEDs(modeLed);
+		*/
 		/* USER CODE BEGIN 3 */
 	}
 	/* USER CODE END 3 */

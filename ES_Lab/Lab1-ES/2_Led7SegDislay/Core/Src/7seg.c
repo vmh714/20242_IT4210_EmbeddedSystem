@@ -61,9 +61,9 @@ void Run7SegDisplay()
 		HAL_GPIO_WritePin(PORT_7SEG_E, PIN_7SEG_E, GPIO_PIN_RESET);
 
 	if (val & 0x8)
-		HAL_GPIO_WritePin(GPIOD, PIN_7SEG_D, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOE, PIN_7SEG_D, GPIO_PIN_SET);
 	else
-		HAL_GPIO_WritePin(GPIOD, PIN_7SEG_D, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOE, PIN_7SEG_D, GPIO_PIN_RESET);
 
 	if (val & 0x4)
 		HAL_GPIO_WritePin(PORT_7SEG_C, PIN_7SEG_C, GPIO_PIN_SET);
@@ -81,7 +81,7 @@ void Run7SegDisplay()
 		HAL_GPIO_WritePin(PORT_7SEG_A, PIN_7SEG_A, GPIO_PIN_RESET);
 
 //	for (int i = 0; i < 8; i++) {
-//	    HAL_GPIO_WritePin(GPIOD, pin[i], (val & (1 << i)) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+//	    HAL_GPIO_WritePin(GPIOE, pin[i], (val & (1 << i)) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 //	}
 	if (pos & 0x1)
 		HAL_GPIO_WritePin(PORT_7SEG_CONTROL0, PIN_7SEG_CONTROL0, GPIO_PIN_SET);
