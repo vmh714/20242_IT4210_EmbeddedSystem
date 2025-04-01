@@ -1,12 +1,17 @@
-14:53:20 **** Incremental Build of configuration Debug for project 1_Led_Display ****
+13:31:20 **** Incremental Build of configuration Debug for project 1_Led_Display ****
 make -j4 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c:22:10: fatal error: 7seg.h: No such file or directory
-   22 | #include "7seg.h"
-      |          ^~~~~~~~
-compilation terminated.
-make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
-"make -j4 all" terminated with exit code 2. Build might be incomplete.
+arm-none-eabi-gcc -o "1_Led_Display.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\vuman\STM32CubeIDE\Lab1-ES\1_Led_Dislay\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="1_Led_Display.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 1_Led_Display.elf
+ 
+arm-none-eabi-size  1_Led_Display.elf 
+arm-none-eabi-objdump -h -S 1_Led_Display.elf  > "1_Led_Display.list"
+   text	   data	    bss	    dec	    hex	filename
+   9788	     32	   1648	  11468	   2ccc	1_Led_Display.elf
+Finished building: default.size.stdout
+ 
+Finished building: 1_Led_Display.list
+ 
 
-14:53:21 Build Failed. 2 errors, 0 warnings. (took 606ms)
+13:31:23 Build Finished. 0 errors, 0 warnings. (took 2s.901ms)
 

@@ -53,12 +53,10 @@ UART_HandleTypeDef huart1;
 int tim6_count;
 
 volatile uint8_t LED_Value;
-//Mảng lưu các giá trị của mode 4
 const unsigned char frames[] = { 0x00, 0x81, 0x42, 0x24, 0x18, 0x18, 0x24, 0x42,
 		0x81, 0x00 };
-//Mode 1 là mode ban đầu của chương trình
-uint8_t countMode = 0;
-volatile uint8_t modeLed = 0;
+uint8_t countMode = 1;
+volatile uint8_t modeLed = 1;
 volatile uint8_t chance;
 static uint8_t value1 = 1;
 static uint8_t value2 = 1;
@@ -73,7 +71,6 @@ static void MX_GPIO_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
-//Hàm xử lý tín hiệu hồng ngoại trả về giá trị của mode led tương ứng
 uint8_t getMode(char *s) {
 	if (strcmp(s, "00ff44bb\n") == 0)
 		return 4;
@@ -104,11 +101,8 @@ uint8_t setLEDsMode4() {
 	value4 = value4 % 10;
 	return frames[value4++];
 }
-//Mảng các hàm thao tác của các mode led
 uint8_t (*setLEDsMode[])() = {setLEDsMode1, setLEDsMode2, setLEDsMode3, setLEDsMode4};
-//Chương trình display led
 void DisplayLEDs(uint8_t mode) {
-	//gán giá trị cho tương ứng với tham số mode được truyền vào
 	LED_Value = setLEDsMode[mode]();
 	if (LED_Value & 0x80)
 		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_SET);
@@ -199,29 +193,18 @@ int main(void)
 		HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13);
 		//delay
 		HAL_Delay(5);
-		//Thực thi khi có sự kiện ngắt
+
 		if (command_ok) {
 			char buf[256];
-			//Giải mã tín hiệu hồng ngoại
 			IrDecode();
-			//Thao tác lưu buffer và truyền tới máy tính qua kênh UART1
 			sprintf(buf, "%02x%02x%02x%02x\n", irda_cmd[0], irda_cmd[1],
 					irda_cmd[2], irda_cmd[3]);
 			HAL_UART_Transmit(&huart1, (const uint8_t*) buf, strlen(buf), 2);
-			//Hiển thị giá trị của byte command
 			Set7SegDisplayValue(irda_cmd[2]);
-			//Xử lý tín hiệu hồng ngoại để thu được hiệu ứng led tương ứng
-			if(getMode(buf))
-			{
-				//Mode tương ứng sẽ được tinh chỉnh lại để phù hợp với tham số của mảng hàm
-				modeLed = getMode(buf) - 1;
-			}
-			//Tắt cờ ngắt
+			modeLed = getMode(buf);
 			command_ok = 0;
 		}
-		//Chạy led 7 thanh
 		Run7SegDisplay();
-		//hàm delay thực hiện thao tác nháy led
 		if (HAL_GetTick() - lastCurrentTime > 500) {
 			DisplayLEDs(modeLed);
 			lastCurrentTime = HAL_GetTick();
